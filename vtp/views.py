@@ -1,44 +1,39 @@
-from django.shortcuts import render, redirect, get_object_or_404
 from django.http import JsonResponse
-from .models import * 
-from .forms import DataForm
-from .models import Network, DataType
+from django.shortcuts import render, redirect, get_object_or_404
 
-# Create your views here.   
-
+from .forms import PersonCreationForm
+from .models import Permode, Datatype
 
 def dashboard(request):
 
 	context = {}
 	return render(request, 'vtp/dashboard.html', context)
 
-def dataCreate(request):
-    form = DataForm() 
+def dataform(request):
+    form = PersonCreationForm()
     if request.method == 'POST':
-        form = DataForm(request.POST)
+        form = PersonCreationForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('dataCreate')
-    return render(request, 'vtp/dataCreate.html', {'form': form})
+            return redirect('dataform')
+    return render(request, 'vtp/dataform.html', {'form': form})
 
 
-def dataUpdate(request, pk):
-    dataRequest = get_object_or_404(ReqData, pk=pk)
-    form = DataForm (instance=dataRequest)
+def person_update_view(request, pk):
+    permode = get_object_or_404(Permode, pk=pk)
+    form = PersonCreationForm(instance=permode)
     if request.method == 'POST':
-        form = DataForm (request.POST, instance=dataRequest)
+        form = PersonCreationForm(request.POST, instance=permode)
         if form.is_valid():
             form.save()
             return redirect('person_change', pk=pk)
-    return render(request, 'persons/home.html', {'form': form})
+    return render(request, 'vtp/dataform.html', {'form': form})
 
-  
+
 # AJAX
-def load_datatype(request):  
+def load_datatypes(request):
     network_id = request.GET.get('network_id')
-    datatypes = DataType.objects.filter(network_id=network_id)
-    # return render(request, 'vtu/city_dropdown_list_options.html', {'cities': cities})
-    print(list(datatypes.values('id', 'name')))
-    return JsonResponse(list(datatypes.values('id', 'name')), safe=False)
+    datatypes = Datatype.objects.filter(network_id=network_id).all()
+    return render(request, 'vtp/datadd.html', {'datatypes': datatypes})
+    # return JsonResponse(list(cities.values('id', 'name')), safe=False)
 
-  
