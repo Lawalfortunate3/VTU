@@ -28,19 +28,42 @@
                 'network_id': networkId       
             },
             success: function (data) {   
-                $("#id_datatype").html(data); 
-                /*
+                // $("#id_datatype").html(data); 
+                
 
                 let html_data = '<option value="">---------</option>';
-                data.forEach(function (city) {
-                    html_data += `<option value="${city.id}">${city.name}</option>`
+                data.forEach(function (datatype) {
+                    html_data += `<option value="${datatype.id}">${datatype.name}</option>`
                 });
                 console.log(html_data);
-                $("#id_city").html(html_data);
+                $("#id_datatype").html(html_data);
 
-                */
             }
         });
+
+
+
+        $.ajax({                      
+            url: url,                    
+            data: {
+                'datatype_id': datatypeId       
+            },
+            success: function (data) {   
+                // $("#id_datatype").html(data); 
+                
+
+                let html_data = '<option value="">---------</option>';
+                data.forEach(function (dataplan) {
+                    html_data += `<option value="${dataplan.id}">${dataplan.name}</option>`
+                });
+                console.log(html_data);
+                $("#id_dataplan").html(html_data);
+
+            }
+        });
+
+
+
 
     });
 </script>

@@ -7,6 +7,6 @@ urlpatterns = [
     path('dataform/', views.dataform, name='dataform'),
     path('<int:pk>/', views.person_update_view, name='person_change'),
 
-
-    path('ajax/load-datatypes/', views.load_datatypes, name='ajax_load_datatypes'), # AJAX
+    path('ajax/dataplan/', views.datatypes, name='dataplan'),
+    path('ajax/load-datatypes/', views.datatypes, name='ajax_load_datatypes'), # AJAX
 ]

@@ -2,7 +2,7 @@ from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 
 from .forms import PersonCreationForm
-from .models import Permode, Datatype
+from .models import Permode, Datatype, Dataplan
 
 def dashboard(request):
 
@@ -31,9 +31,16 @@ def person_update_view(request, pk):
 
 
 # AJAX
-def load_datatypes(request):
+def datatypes(request):
     network_id = request.GET.get('network_id')
     datatypes = Datatype.objects.filter(network_id=network_id).all()
-    return render(request, 'vtp/datadd.html', {'datatypes': datatypes})
-    # return JsonResponse(list(cities.values('id', 'name')), safe=False)
+    print(list(datatypes.values('id', 'name')))
+    # return render(request, 'vtp/datadd.html', {'datatypes': datatypes})
+    return JsonResponse(list(datatypes.values('id', 'name')), safe=False)
 
+def dataplan(request):
+    datatype_id = request.GET.get('datatype_id')
+    dataplan = Dataplan.objects.filter(datatype_id=datatype_id).all()
+    print(list(dataplan.values('id', 'name')))
+    # return render(request, 'vtp/datadd.html', {'datatypes': datatypes})
+    return JsonResponse(list(dataplan.values('id', 'name')), safe=False)

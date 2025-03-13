@@ -20,3 +20,13 @@ class PersonCreationForm(forms.ModelForm):
                 pass  # invalid input from the client; ignore and fallback to empty City queryset
         elif self.instance.pk:
             self.fields['datatype'].queryset = self.instance.network.datatype_set.order_by('name')
+
+
+        if 'datatype' in self.data:
+            try:
+                datatype_id = int(self.data.get('datatype'))
+                self.fields['datatype'].queryset = Datatype.objects.filter(datatype_id=datatype_id).order_by('name')
+            except (ValueError, TypeError):
+                pass  # invalid input from the client; ignore and fallback to empty City queryset
+        elif self.instance.pk:
+            self.fields['dataplan'].queryset = self.instance.datatype.dataplan_set.order_by('name')
