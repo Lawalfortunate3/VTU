@@ -9,4 +9,7 @@ urlpatterns = [
 
     path('ajax/dataplan/', views.datatypes, name='dataplan'),
     path('ajax/load-datatypes/', views.datatypes, name='ajax_load_datatypes'), # AJAX
+
+
+    path('airtime/', views.airtime, name='airtime'),
 ]

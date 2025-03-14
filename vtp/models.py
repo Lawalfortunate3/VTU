@@ -31,3 +31,24 @@ class Permode(models.Model):
 
     def __str__(self):
         return self.name
+    
+
+
+          # ....AIRTIME MODELS....
+
+
+class Airtime(models.Model):
+    airtime = models.CharField(max_length=40)
+
+    def __str__(self):
+        return self.airtime
+
+
+
+class AirtimeTran(models.Model):
+    airtime = models.ForeignKey(Network, on_delete=models.SET_NULL, blank=True, null=True)
+    number = models.CharField(max_length=124)
+    amount = models.CharField(max_length=124)
+
+    def __str__(self):
+        return self.name

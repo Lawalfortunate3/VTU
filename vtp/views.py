@@ -1,7 +1,7 @@
 from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 
-from .forms import PersonCreationForm
+from .forms import PersonCreationForm, AirtimeForm
 from .models import Permode, Datatype, Dataplan
 
 def dashboard(request):
@@ -44,3 +44,20 @@ def dataplan(request):
     print(list(dataplan.values('id', 'name')))
     # return render(request, 'vtp/datadd.html', {'datatypes': datatypes})
     return JsonResponse(list(dataplan.values('id', 'name')), safe=False)
+
+
+
+
+
+
+        # ....AIRTIME VIEW....
+
+
+def airtime(request):
+    form = AirtimeForm()
+    if request.method == 'POST':
+        form = PersonCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('airtime')
+    return render(request, 'vtp/airtime.html', {'form': form})
