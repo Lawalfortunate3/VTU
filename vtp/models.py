@@ -1,6 +1,7 @@
 from django.db import models
 
 
+
 class Network(models.Model):
     name = models.CharField(max_length=40)
 
@@ -46,9 +47,9 @@ class Airtime(models.Model):
 
 
 class AirtimeTran(models.Model):
-    airtime = models.ForeignKey(Network, on_delete=models.SET_NULL, blank=True, null=True)
+    airtime = models.ForeignKey(Airtime, on_delete=models.SET_NULL, blank=True, null=True)
     number = models.CharField(max_length=124)
     amount = models.CharField(max_length=124)
 
     def __str__(self):
-        return self.name
+        return self.number

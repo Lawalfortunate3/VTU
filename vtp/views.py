@@ -56,7 +56,7 @@ def dataplan(request):
 def airtime(request):
     form = AirtimeForm()
     if request.method == 'POST':
-        form = PersonCreationForm(request.POST)
+        form = AirtimeForm(request.POST)
         if form.is_valid():
             form.save()
             return redirect('airtime')
