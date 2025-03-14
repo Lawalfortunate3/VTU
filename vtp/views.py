@@ -45,19 +45,14 @@ def dataplan(request):
     # return render(request, 'vtp/datadd.html', {'datatypes': datatypes})
     return JsonResponse(list(dataplan.values('id', 'name')), safe=False)
 
-
-
-
-
-
         # ....AIRTIME VIEW....
 
 
-def airtime(request):
+def airtimeform(request):
     form = AirtimeForm()
     if request.method == 'POST':
         form = AirtimeForm(request.POST)
         if form.is_valid():
             form.save()
             return redirect('airtime')
-    return render(request, 'vtp/airtime.html', {'form': form})
+    return render(request, 'vtp/airtimeform.html', {'form': form})

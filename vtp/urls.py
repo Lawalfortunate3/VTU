@@ -11,5 +11,5 @@ urlpatterns = [
     path('ajax/load-datatypes/', views.datatypes, name='ajax_load_datatypes'), # AJAX
 
 
-    path('airtime/', views.airtime, name='airtime'),
+    path('airtimeform/', views.airtimeform, name='airtimeform'),
 ]
