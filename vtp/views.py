@@ -1,8 +1,61 @@
 from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
+from .decorators import unauthenticated_user, allowed_users
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+from django.contrib.auth import authenticate, login, logout
+from .forms import CreateUserForm
 
 from .forms import PersonCreationForm, AirtimeForm
 from .models import Permode, Datatype, Dataplan
+
+
+
+        #   ....USER VALIDATION....
+
+@unauthenticated_user
+def registerPage(request):
+	form = CreateUserForm()
+
+	if request.method == 'POST':
+		form = CreateUserForm(request.POST)
+		if form.is_valid():
+			user= form.save()
+			form.save()
+
+			username = form.cleaned_data.get('username')
+
+
+			messages.success(request, username + ' Account created Successfully...')
+			return redirect ('login')
+
+	context = {'form':form}
+	return render(request, 'vtp/register.html', context)
+
+# @unauthenticated_user
+def loginPage(request):
+
+	if request.method == 'POST': 
+		username = request.POST.get('username')
+		password = request.POST.get('password')
+
+		user = authenticate(request, username=username, password=password)
+
+		if user is not None:
+			login(request, user)
+			return redirect('dashboard')
+		
+		else: messages.info(request, 'Username OR Password is incorect')
+
+
+	context = {}
+	return render(request, 'vtp/login.html', context)
+    
+def logoutUser(request):
+	logout(request)
+	return redirect('login')
+
+
 
 def dashboard(request):
 

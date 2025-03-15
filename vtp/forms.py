@@ -1,8 +1,19 @@
 from django import forms
-
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
 from vtp.models import Permode, Datatype, AirtimeTran, Airtime
 
 
+
+            # .... VALIDATION FORM....
+class CreateUserForm(UserCreationForm):
+    class Meta:
+        model = User
+        fields = ('username', 'email', 'password1', 'password2')
+
+
+
+            #  .... DATA FORM.....
 class PersonCreationForm(forms.ModelForm):
     class Meta:
         model = Permode
