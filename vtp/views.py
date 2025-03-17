@@ -80,7 +80,13 @@ def dashboard(request):
 	return render(request, 'vtp/dashboard.html', context)
 
 
+<<<<<<< HEAD
 @login_required(login_url='login')
+=======
+
+
+
+>>>>>>> 64083dad855c44435e79579730c88ed374136c8a
 def dataform(request):
     form = PersonCreationForm()
     if request.method == 'POST':
