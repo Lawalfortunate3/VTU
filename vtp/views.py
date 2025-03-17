@@ -9,6 +9,10 @@ def dashboard(request):
 	context = {}
 	return render(request, 'vtp/dashboard.html', context)
 
+
+
+
+
 def dataform(request):
     form = PersonCreationForm()
     if request.method == 'POST':
